@@ -18,9 +18,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, String>> _onboardingData = [
     {
-      'title': 'The Power of Astaghfirullah',
-      'description': 'Astagafirullah increases your Rizq, purifies your heart, and solves your life problems.',
-      'image': '✨',
+      'title': 'Welcome to Tawbah',
+      'description': 'Tawbah means returning to Allah. This app helps you perform 12,000 Istighfar daily, following the Sunnah of Abu Huraira (RA).',
+      'image': '📿',
     },
     {
       'title': 'Sunnah of Abu Huraira (RA)',

@@ -32,7 +32,7 @@ class ZikirApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Zikir Astagafirullah',
+      title: 'Tawbah',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       home: const RootScreen(),

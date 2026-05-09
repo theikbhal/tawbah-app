@@ -37,7 +37,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.textSecondary,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Today'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Tawbah'),
           BottomNavigationBarItem(icon: Icon(Icons.calendar_month), label: 'Calendar'),
           BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Reports'),
           BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Why?'),
