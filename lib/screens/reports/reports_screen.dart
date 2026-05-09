@@ -3,14 +3,13 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:provider/provider.dart';
 import '../../core/design_system.dart';
 import '../../providers/user_provider.dart';
-import '../../data/database_helper.dart';
 
 class ReportsScreen extends StatelessWidget {
   const ReportsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<UserProvider>(context);
+    Provider.of<UserProvider>(context);
 
     return Scaffold(
       backgroundColor: AppColors.background,

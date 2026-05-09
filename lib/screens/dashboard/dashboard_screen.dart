@@ -4,6 +4,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../core/design_system.dart';
 import '../../providers/user_provider.dart';
+import '../../data/database_helper.dart';
+import '../../data/models.dart';
 import '../calendar/calendar_screen.dart';
 import '../reports/reports_screen.dart';
 import '../education/education_screen.dart';
@@ -61,7 +63,7 @@ class DashboardHome extends StatelessWidget {
         padding: const EdgeInsets.all(24.0),
         child: Column(
           children: [
-            _buildHeader(user),
+            _buildHeader(context, user, userProvider),
             const SizedBox(height: 30),
             _buildProgressSection(userProvider, target),
             const SizedBox(height: 40),
@@ -74,7 +76,7 @@ class DashboardHome extends StatelessWidget {
     );
   }
 
-  Widget _buildHeader(dynamic user) {
+  Widget _buildHeader(BuildContext context, dynamic user, UserProvider provider) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -95,11 +97,51 @@ class DashboardHome extends StatelessWidget {
             ),
           ],
         ),
-        const CircleAvatar(
-          backgroundColor: AppColors.primary,
-          child: Icon(Icons.person, color: Colors.white),
+        GestureDetector(
+          onTap: () => _showUserSwitcher(context, provider),
+          child: const CircleAvatar(
+            backgroundColor: AppColors.primary,
+            child: Icon(Icons.group, color: Colors.white),
+          ),
         ),
       ],
+    );
+  }
+
+  void _showUserSwitcher(BuildContext context, UserProvider provider) async {
+    final users = await DatabaseHelper.instance.getUsers();
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Switch Profile'),
+        content: SizedBox(
+          width: double.maxFinite,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: users.length,
+            itemBuilder: (context, index) {
+              final u = users[index];
+              return ListTile(
+                title: Text(u.name),
+                subtitle: Text(u.role),
+                onTap: () {
+                  provider.setCurrentUser(u);
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+              // Navigation to onboarding for adding new user could be added here
+            },
+            child: const Text('Add Profile'),
+          ),
+        ],
+      ),
     );
   }
 
@@ -175,7 +217,7 @@ class DashboardHome extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(FontAwesomeIcons.fingerprint, color: Colors.white, size: 50),
+              FaIcon(FontAwesomeIcons.fingerprint, color: Colors.white, size: 50),
               SizedBox(height: 10),
               Text(
                 'TAP TO ZIKIR',

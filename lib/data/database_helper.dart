@@ -73,14 +73,14 @@ class DatabaseHelper {
     final db = await instance.database;
     final dateStr = date.toIso8601String().split('T')[0];
     
-    final existing = await db.query(
+    final result = await db.query(
       'zikir_logs',
       where: 'userId = ? AND date = ?',
       whereArgs: [userId, dateStr],
     );
 
-    if (existing.isNotEmpty) {
-      final currentCount = existing.first['count'] as int;
+    if (result.isNotEmpty) {
+      final currentCount = result.first['count'] as int;
       await db.update(
         'zikir_logs',
         {'count': currentCount + increment},

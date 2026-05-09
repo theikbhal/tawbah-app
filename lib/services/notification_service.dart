@@ -19,16 +19,18 @@ class NotificationService {
       iOS: iosSettings,
     );
 
-    await _notificationsPlugin.initialize(settings);
+    await _notificationsPlugin.initialize(
+      settings: settings,
+    );
   }
 
   Future<void> scheduleReminder(int id, String title, String body, DateTime time) async {
     await _notificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.from(time, tz.local),
-      const NotificationDetails(
+      id: id,
+      title: title,
+      body: body,
+      scheduledDate: tz.TZDateTime.from(time, tz.local),
+      notificationDetails: const NotificationDetails(
         android: AndroidNotificationDetails(
           'zikir_reminders',
           'Zikir Reminders',
@@ -37,6 +39,7 @@ class NotificationService {
         ),
         iOS: DarwinNotificationDetails(),
       ),
+      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
       uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
